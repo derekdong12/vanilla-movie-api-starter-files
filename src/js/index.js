@@ -1,3 +1,5 @@
+import {genres} from "./genres";
+
 const DOMSelectors = {
   grid: document.querySelector(".movie-grid"),
 };
