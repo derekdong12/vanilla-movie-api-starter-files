@@ -1,8 +1,5 @@
-import {genres} from "./genres";
-
-const DOMSelectors = {
-  grid: document.querySelector(".movie-grid"),
-};
+import { genres } from "./genre";
+import { DOMSelectors } from "./DOM";
 const key = `1fd276ec57b4baedacae00246e5cf4b7`;
 const query = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&sort_by=vote_average.desc&include_adult=false&include_video=false&page=1&vote_count.gte=10000&vote_average.gte=8`;
 
@@ -10,7 +7,7 @@ const init = async function () {
   try {
     const response = await fetch(query);
     const data = await response.json();
-    //console.log(genres[0].name);
+
     data.results.forEach((movie) => {
       let genreArr = [];
       const addGenre = function () {
@@ -20,10 +17,8 @@ const init = async function () {
             return genreArr;
           }
         });
-      }
+      };
       addGenre();
-    //data.results.forEach((movie) => {
-      //movie.genres = genres;
       DOMSelectors.grid.insertAdjacentHTML(
         "beforeend",
         `<div class="movie-card">
