@@ -1,9 +1,20 @@
 import { genres } from "./genre";
 import { DOMSelectors } from "./DOM";
-const key = `1fd276ec57b4baedacae00246e5cf4b7`;
-const query = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&sort_by=vote_average.desc&include_adult=false&include_video=false&page=1&vote_count.gte=10000&vote_average.gte=8`;
 
-const init = async function () {
+let pageNumber = 1;
+
+const nextPage = function () {
+  DOMSelectors.btnNext.addEventListener("click", function(){
+    pageNumber++;
+    init(pageNumber);
+  });
+};
+nextPage();
+
+const init = async function (pageNumber) {
+  DOMSelectors.grid.innerHTML = "";
+  const key = `1fd276ec57b4baedacae00246e5cf4b7`;
+  const query = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&sort_by=vote_average.desc&include_adult=false&include_video=false&page=${pageNumber}&vote_count.gte=10000&vote_average.gte=8`;
   try {
     const response = await fetch(query);
     const data = await response.json();
